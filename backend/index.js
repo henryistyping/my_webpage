@@ -7,25 +7,25 @@ const pool = require("./db");
 app.use(cors());
 app.use(express.json()); // req.body
 
-//TODO: Routes
-// create a post
 
+
+// CREATE a post
 app.post("/posts", async (req, res) => {
     try {
-        console.log(req.body);
+        // console.log(req.body);
         const { description } = req.body;
         const newPost = await pool.query(
             "INSERT INTO postlist (description) VALUES($1) RETURNING *",
             [description]
         );
 
-        res.json(newPost.rows[0])
+        res.json(newPost.rows[0]) // return the first row of the response
     } catch (err) {
         console.error(err.message);
     }
 });
 
-// get a list of all posts
+// GET a list of all posts
 
 app.get("/posts", async (req, res) => {
     try {
@@ -38,8 +38,22 @@ app.get("/posts", async (req, res) => {
         console.error(err.message);
     }
 });
-// get a post
-// update a post
+
+// GET a single post
+app.get("/posts/:id", async (req, res) => {
+    try {
+        // console.log(req.params);
+        const { id } = req.params
+        const post = await pool.query("SELECT * FROM postlist WHERE post_id = $1", [id])
+
+        res.json(post.rows[0])
+    } catch {
+        console.error(err.message)
+    }
+})
+
+// TODO: UPDATE a post
+
 
 
 app.listen(5000, () => {
