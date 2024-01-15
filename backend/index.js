@@ -43,17 +43,33 @@ app.get("/posts", async (req, res) => {
 app.get("/posts/:id", async (req, res) => {
     try {
         // console.log(req.params);
-        const { id } = req.params
-        const post = await pool.query("SELECT * FROM postlist WHERE post_id = $1", [id])
+        const { id } = req.params;
+        const singlePost = await pool.query(
+            "SELECT * FROM postlist WHERE post_id = $1",
+            [id]
+        );
 
-        res.json(post.rows[0])
-    } catch {
+        res.json(singlePost.rows[0])
+    } catch (err) {
         console.error(err.message)
     }
 })
 
-// TODO: UPDATE a post
+// UPDATE a post
+app.put("/posts/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { description } = req.body;
+        const updatePost = await pool.query(
+            "UPDATE postlist SET description = $1 WHERE post_id = $2",
+            [description, id]
+        );
 
+        res.json("Post was updated")
+    } catch (err) {
+        console.error(err.message)
+    }
+})
 
 
 app.listen(5000, () => {
