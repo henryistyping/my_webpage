@@ -71,6 +71,20 @@ app.put("/posts/:id", async (req, res) => {
     }
 })
 
+// DELETE a post
+app.delete("/posts/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deletePost = await pool.query(
+            "DELETE FROM postlist WHERE post_id = $1",
+            [id]
+        );
+
+        res.json("Post was deleted.")
+    } catch (err) {
+        console.error(err.message)
+    }
+})
 
 app.listen(5000, () => {
     console.log("server has started on port 5000")
