@@ -12,4 +12,9 @@
 
     - Projects
 
-[ ] only allow myself to edit the posts
+[ ] only allow myself to edit the posts (OAuth)
+
+
+### Stretch
+
+[ ] Deploy front, back, DB
