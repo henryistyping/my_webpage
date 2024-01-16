@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@mdxeditor/editor": "^2.3.2",
+    "@tiptap/pm": "^2.1.16",
+    "@tiptap/react": "^2.1.16",
+    "@tiptap/starter-kit": "^2.1.16",
     "bootstrap": "^5.3.2",
     "next": "14.0.4",
     "react": "^18",
