@@ -2,9 +2,9 @@
 
 ### Current TODO:
 
-[ ] Implement client side Front page
+- [ ] Implement client side Front page
 
-[ ] Implement Router
+- [ ] Implement Router
 
     - About
 
