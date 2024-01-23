@@ -7,10 +7,9 @@ import Tiptap from './TipTap';
 const InputPost = () => {
   return (
     <>
-      <h1 className="text-center mt-8">PERN POST</h1>
-      <form className='text-center mt-5'>
+      <h1 className="">PERN POST</h1>
+      <form className=''>
         <Tiptap />
-        <button className='btn btn-success'>Submit</button>
       </form>
     </>
   )

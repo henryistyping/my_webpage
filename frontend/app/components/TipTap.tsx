@@ -1,4 +1,4 @@
-'use client'
+
 import { Button } from "@mui/material";
 import { useState, useRef } from "react"
 import {
@@ -7,10 +7,10 @@ import {
   MenuControlsContainer,
   MenuDivider,
   MenuSelectHeading,
-  RichTextEditor,
-  type RichTextEditorRef,
+  RichTextEditorProvider,
+  RichTextField,
 } from "mui-tiptap";
-// import { useEditor, EditorContent } from '@tiptap/react'
+import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 
 //TODO: import other dependencies from Tiptap for paragraph, list, etc.
@@ -18,26 +18,28 @@ import StarterKit from '@tiptap/starter-kit'
 //STRETCH: Create a Notion-style editor
 
 const Tiptap = () => {
-  const rteRef = useRef<RichTextEditorRef>(null);
+  const editor = useEditor({
+    extensions: [StarterKit],
+    content: "<p>Hello <b>world</b>!</p>",
+  });
+  // const rteRef = useRef<RichTextEditorRef>(null);
   const set_editorContent = useState("hello")
   return (
     <>
       <div>
-        <RichTextEditor
-          ref={rteRef}
-          extensions={[StarterKit]} // Or any Tiptap extensions you wish!
-          content="<p>Hello world</p>" // Initial content for the editor
-          // Optionally include `renderControls` for a menu-bar atop the editor:
-          renderControls={() => (
-            <MenuControlsContainer>
-              <MenuSelectHeading />
-              <MenuDivider />
-              <MenuButtonBold />
-              <MenuButtonItalic />
-              {/* Add more controls of your choosing here */}
-            </MenuControlsContainer>
-          )}
-        />
+        <RichTextEditorProvider editor={editor}>
+          <RichTextField
+            controls={
+              <MenuControlsContainer>
+                <MenuSelectHeading />
+                <MenuDivider />
+                <MenuButtonBold />
+                <MenuButtonItalic />
+                {/* Add more controls of your choosing here */}
+              </MenuControlsContainer>
+            }
+          />
+        </RichTextEditorProvider>
 
         <Button onClick={() => console.log(rteRef.current?.editor?.getHTML())}>
           Save
