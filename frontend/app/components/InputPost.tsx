@@ -8,9 +8,7 @@ const InputPost = () => {
   return (
     <>
       <h1 className="">PERN POST</h1>
-      <form className=''>
         <Tiptap />
-      </form>
     </>
   )
 };

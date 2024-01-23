@@ -8,43 +8,52 @@ import {
   MenuDivider,
   MenuSelectHeading,
   RichTextEditorProvider,
+  type RichTextEditorRef,
   RichTextField,
 } from "mui-tiptap";
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
+import CharacterCount from "@tiptap/extension-character-count";
 
-//TODO: import other dependencies from Tiptap for paragraph, list, etc.
+//TODO: print out the content of the editor in console.log
 //TODO: Replace text with icons and make the buttons pretty
 //STRETCH: Create a Notion-style editor
 
+
 const Tiptap = () => {
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [
+      StarterKit,
+      CharacterCount.configure({
+        limit: 10000
+      }),],
     content: "<p>Hello <b>world</b>!</p>",
   });
-  // const rteRef = useRef<RichTextEditorRef>(null);
   const set_editorContent = useState("hello")
   return (
     <>
-      <div>
-        <RichTextEditorProvider editor={editor}>
-          <RichTextField
-            controls={
-              <MenuControlsContainer>
-                <MenuSelectHeading />
-                <MenuDivider />
-                <MenuButtonBold />
-                <MenuButtonItalic />
-                {/* Add more controls of your choosing here */}
-              </MenuControlsContainer>
-            }
-          />
-        </RichTextEditorProvider>
+      {/* <form action="a certain url" method="post"> */}
+      <RichTextEditorProvider editor={editor}>
+        <RichTextField
+          controls={
+            <MenuControlsContainer>
+              <MenuSelectHeading />
+              <MenuDivider />
+              <MenuButtonBold />
+              <MenuButtonItalic />
+              {/* Add more controls of your choosing here */}
+            </MenuControlsContainer>
+          }
+        />
+      </RichTextEditorProvider>
 
-        <Button onClick={() => console.log(rteRef.current?.editor?.getHTML())}>
+      {/* <Button type="submit" onClick={() => console.log(editor)}>
           Save
-        </Button>
-      </div>
+        </Button> */}
+      <Button onClick={() => console.log(editor)}>
+        Save
+      </Button>
+      {/* </form> */}
     </>
   )
 }
