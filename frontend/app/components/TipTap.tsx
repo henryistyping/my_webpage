@@ -2,6 +2,9 @@
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 
+//TODO: import other dependencies from Tiptap for paragraph, list, etc.
+//TODO: Replace text with icons and make the buttons pretty
+
 const Tiptap = () => {
   const editor = useEditor({
     extensions: [
@@ -111,8 +114,8 @@ const Tiptap = () => {
         >
           redo
         </button>
+        <EditorContent editor={editor} />
       </div>
-      <EditorContent editor={editor} />
     </>
   )
 }
