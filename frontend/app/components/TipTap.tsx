@@ -15,12 +15,12 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import CharacterCount from "@tiptap/extension-character-count";
 
-//TODO: print out the content of the editor in console.log
 //TODO: Replace text with icons and make the buttons pretty
 //STRETCH: Create a Notion-style editor
 
 
 const Tiptap = () => {
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -29,6 +29,9 @@ const Tiptap = () => {
       }),],
     content: "<p>Hello <b>world</b>!</p>",
   });
+
+  const submit = editor?.getJSON();
+
   const set_editorContent = useState("hello")
   return (
     <>
@@ -50,7 +53,7 @@ const Tiptap = () => {
       {/* <Button type="submit" onClick={() => console.log(editor)}>
           Save
         </Button> */}
-      <Button onClick={() => console.log(editor)}>
+      <Button onClick={() => console.log(submit)}>
         Save
       </Button>
       {/* </form> */}
