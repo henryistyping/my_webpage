@@ -1,13 +1,10 @@
-import { useState, useRef } from "react"
 import {
   MenuButtonBold,
   MenuButtonItalic,
   MenuControlsContainer,
   MenuDivider,
   MenuSelectHeading,
-  RichTextEditorProvider,
   RichTextField,
-  useRichTextEditorContext,
 } from "mui-tiptap";
 
 //TODO: Use state management (context) to allow form submission in the parenet component OR figure out a way to pass down as prop to child component
@@ -18,7 +15,6 @@ import {
 const Tiptap = () => {
   return (
     <>
-      {/* <form action="a certain url" method="post"> */}
       <RichTextField
         controls={
           <MenuControlsContainer>

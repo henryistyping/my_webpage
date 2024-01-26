@@ -19,7 +19,8 @@ const InputPost = () => {
   });
 
   const submit = editor?.getJSON();
-  
+
+  //TODO: Implement a form that will send to DB upon button click `submit`
   return (
     <>
       <h1 className="">PERN POST</h1>
