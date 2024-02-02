@@ -4,11 +4,15 @@ import React from 'react';
 import Tiptap from './TipTap';
 import { RichTextEditorProvider } from 'mui-tiptap';
 import { useEditor, EditorContent } from '@tiptap/react'
+
 import StarterKit from '@tiptap/starter-kit'
 import CharacterCount from "@tiptap/extension-character-count";
+
 import { Button, FormControl } from "@mui/material";
 
-import { Controller, useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from "react-hook-form"
+
+import { z } from "zod";
 
 const InputPost = () => {
   const { handleSubmit, control } = useForm()
@@ -22,9 +26,42 @@ const InputPost = () => {
     content: "<p>Hello <b>world</b>!</p>",
   });
 
-  const submit = editor?.getJSON();
+  // Form conditioning with zod
+  const postSchema = z.object({
+    title: z
+      .string()
+      .min(1, {
+        message: "Title is too short."
+      })
+      .max(100, { message: "Title should be less than 100 characters" }),
+
+    description: z
+      .string()
+      .min(1, {
+        message: "Cannot submit empty post"
+      })
+      .max(10000, { message: "Writing is too long" })
+      .trim(),
+  })
+
+  const formCheck = useForm<z.infer<typeof postSchema>>({ // initialize react-hook-form
+    mode: "onSubmit",
+    defaultValues: {
+      title: "",
+      description: ""
+    }
+  });
+
+  const onSubmit = (values: z.infer<typeof postSchema>) => {
+    // Some random function here
+    console.log(editor?.getJSON())
+  }
 
   //TODO: Implement a form that will send to DB upon button click `submit`
+  // Need to have react-hook-form to handle Form control
+  // Need zod to display error messages
+  // Save progress as user writes stuff in TipTap (onChange) => refer to the video
+  // Need to REST API call 
   //TODO more specifically: find what properties should be passed down to Tiptap 
   // refer to MUI/TIPTAP for all the properties that can be used, then rend them as fields for React-hook-form, and also implementing functions that go with them
   return (
