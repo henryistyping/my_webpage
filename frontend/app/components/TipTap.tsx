@@ -12,12 +12,7 @@ import {
 //STRETCH: Implement a Notion-style editor
 
 
-const Tiptap = (props: {
-  description: string,
-  onChange
-}) => {
-  
-
+const Tiptap = () => {
   return (
     <>
       <RichTextField

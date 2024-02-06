@@ -1,9 +1,8 @@
-'use client'
 import React from 'react';
 
 // component
 import Tiptap from './TipTap';
-
+import { useCurrentEditor } from '@tiptap/react';
 
 
 import { Button, FormControl } from "@mui/material";
@@ -13,8 +12,8 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form"
 import { z } from "zod";
 
 const InputPost = () => {
-  const { handleSubmit, control } = useForm() // RHF
-
+  const { handleSubmit, control } = useForm(); // RHF
+  const { editor } = useCurrentEditor(); // FIXME Tiptap 
 
 
   // Form conditioning with zod
@@ -43,7 +42,8 @@ const InputPost = () => {
     }
   });
 
-  const onSubmit = (values: z.infer<typeof postSchema>) => {
+  // const onSubmit = (values: z.infer<typeof postSchema>) => {
+  const onSubmit = () => {
     // Some random function here
     console.log(editor?.getJSON())
   }
@@ -65,11 +65,8 @@ const InputPost = () => {
           render={({ field }) => (
             //Look at the tip section
             <>
-              <Tiptap
-                description={field.value}
-                onChange={field.onChange}
-              />
-              <Button onClick={() => console.log(onSubmit)}>
+              <Tiptap />
+              <Button onClick={() => onSubmit()}>
                 Save
               </Button>
             </>

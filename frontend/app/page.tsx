@@ -1,3 +1,4 @@
+'use client'
 // `app.page.tsx` is the UI for the `/` URL
 import Image from 'next/image';
 import styles from './page.module.scss';
@@ -9,7 +10,7 @@ import CharacterCount from "@tiptap/extension-character-count";
 import { RichTextEditorProvider } from 'mui-tiptap';
 
 //components
-import InputPost from './components/InputPost';
+import CreateNewPost from './components/CreateNewPost';
 
 export default function Home() {
 
@@ -26,7 +27,9 @@ export default function Home() {
     <main className={styles.main}>
       <>
         <div className="container">
-          <InputPost />
+          <RichTextEditorProvider editor={editor}>
+            <CreateNewPost />
+          </RichTextEditorProvider>
         </div>
       </>
     </main>
