@@ -1,8 +1,8 @@
 'use client'
 import React from 'react';
 
+// component
 import Tiptap from './TipTap';
-import { RichTextEditorProvider } from 'mui-tiptap';
 
 
 
@@ -35,7 +35,7 @@ const InputPost = () => {
       .trim(),
   })
 
-  const formCheck = useForm<z.infer<typeof postSchema>>({ // initialize react-hook-form
+  const formCheck = useForm<z.infer<typeof postSchema>>({ // initialize react-hook-form`
     mode: "onSubmit",
     defaultValues: {
       title: "",
@@ -64,7 +64,7 @@ const InputPost = () => {
           name="TipTap"
           render={({ field }) => (
             //Look at the tip section
-            <RichTextEditorProvider editor={editor}>
+            <>
               <Tiptap
                 description={field.value}
                 onChange={field.onChange}
@@ -72,7 +72,7 @@ const InputPost = () => {
               <Button onClick={() => console.log(onSubmit)}>
                 Save
               </Button>
-            </RichTextEditorProvider>
+            </>
           )}
         />
 
