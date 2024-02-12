@@ -2,8 +2,7 @@ import React from 'react';
 
 // component
 import Tiptap from './TipTap';
-import { useCurrentEditor } from '@tiptap/react';
-
+import { useRichTextEditorContext } from 'mui-tiptap'
 
 import { Button, FormControl } from "@mui/material";
 
@@ -13,7 +12,8 @@ import { z } from "zod";
 
 const InputPost = () => {
   const { handleSubmit, control } = useForm(); // RHF
-  const { editor } = useCurrentEditor(); // FIXME Tiptap 
+  const editor = useRichTextEditorContext(); // FIXME Tiptap
+  // context is not returning editor property?
 
 
   // Form conditioning with zod
@@ -42,10 +42,15 @@ const InputPost = () => {
     }
   });
 
+  if (!editor) {
+    return null;
+  }
+
   // const onSubmit = (values: z.infer<typeof postSchema>) => {
   const onSubmit = () => {
     // Some random function here
     console.log(editor?.getJSON())
+    alert(editor?.getJSON())
   }
 
   //TODO: Implement a form that will send to DB upon button click `submit`
@@ -72,7 +77,6 @@ const InputPost = () => {
             </>
           )}
         />
-
       </FormControl>
     </>
   )

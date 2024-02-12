@@ -4,10 +4,10 @@ import Image from 'next/image';
 import styles from './page.module.scss';
 
 // Tiptap
+import { RichTextEditorProvider } from 'mui-tiptap';
 import { useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import CharacterCount from "@tiptap/extension-character-count";
-import { RichTextEditorProvider } from 'mui-tiptap';
 
 //components
 import CreateNewPost from './components/CreateNewPost';
