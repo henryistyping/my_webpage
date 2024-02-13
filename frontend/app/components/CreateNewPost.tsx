@@ -9,6 +9,7 @@ import { Button, FormControl } from "@mui/material";
 import { useForm, SubmitHandler, Controller } from "react-hook-form"
 
 import { z } from "zod";
+import { Exception } from 'sass';
 
 const InputPost = () => {
   const { handleSubmit, control } = useForm(); // RHF
@@ -47,10 +48,20 @@ const InputPost = () => {
   }
 
   // const onSubmit = (values: z.infer<typeof postSchema>) => {
-  const onSubmit = () => {
+  const onSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    try {
+      const body = editor?.getJSON()
+      const response = fetch("http://localhost:3000/")
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error(err.message)
+      }
+    }
+
     // Some random function here
     console.log(editor?.getJSON())
-    alert(editor?.getJSON())
+
   }
 
   //TODO: Implement a form that will send to DB upon button click `submit`
@@ -71,7 +82,7 @@ const InputPost = () => {
             //Look at the tip section
             <>
               <Tiptap />
-              <Button onClick={() => onSubmit()}>
+              <Button onClick={(e) => onSubmit(e)}>
                 Save
               </Button>
             </>
