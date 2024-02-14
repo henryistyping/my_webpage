@@ -4,7 +4,7 @@ import React from 'react';
 import Tiptap from './TipTap';
 import { useRichTextEditorContext } from 'mui-tiptap'
 
-import { Button, FormControl } from "@mui/material";
+import { Button, FormControl, TextField } from "@mui/material";
 
 import { useForm, SubmitHandler, Controller } from "react-hook-form"
 
@@ -47,12 +47,25 @@ const InputPost = () => {
     return null;
   }
 
-  // const onSubmit = (values: z.infer<typeof postSchema>) => {
+  //TODO: Use type control to set title and body of post as FormValues type
+  // https://react-hook-form.com/docs/usecontroller/controller#Tip
+
+  //FIXME: have 2 onSubmit functions; consolidate them.
+
+  type FormValues = {
+    TipTap: string
+  }
+
+  // Submitting new post
   const onSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      const body = editor?.getJSON()
-      const response = fetch("http://localhost:3000/")
+      const body = { title: titleValue, body: editor?.getJSON() }
+      const response = fetch("http://localhost:5000/posts", {
+        method: "POST",
+        headers: { "Content-Type": "applicaiton/json" },
+        body: JSON.stringify(body)
+      })
     } catch (err: unknown) {
       if (err instanceof Error) {
         console.error(err.message)
@@ -78,9 +91,10 @@ const InputPost = () => {
         <Controller
           control={control}
           name="TipTap"
-          render={({ field }) => (
+          render={({ field: { titleValue } }) => (
             //Look at the tip section
             <>
+              <TextField value={titleValue} />
               <Tiptap />
               <Button onClick={(e) => onSubmit(e)}>
                 Save
