@@ -11,8 +11,13 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form"
 import { z } from "zod";
 import { Exception } from 'sass';
 
+type FormValues = {
+  TipTap: string
+}
+
 const InputPost = () => {
-  const { handleSubmit, control } = useForm(); // RHF
+  // const { handleSubmit, control } = useForm(); // RHF
+  const { handleSubmit, control } = useForm<FormValues>()
   const editor = useRichTextEditorContext(); // FIXME Tiptap
   // context is not returning editor property?
 
@@ -50,14 +55,11 @@ const InputPost = () => {
   //TODO: Use type control to set title and body of post as FormValues type
   // https://react-hook-form.com/docs/usecontroller/controller#Tip
 
-  //FIXME: have 2 onSubmit functions; consolidate them.
+  //FIXME: clean up error handling, define 'data' type, make submission working
 
-  type FormValues = {
-    TipTap: string
-  }
 
-  // Submitting new post
-  const onSubmit = async (e: React.SyntheticEvent) => {
+  // Submitting new post THIS ONE
+  const onSubmit = async (data) => {
     e.preventDefault();
     try {
       const body = { title: titleValue, body: editor?.getJSON() }
@@ -87,21 +89,21 @@ const InputPost = () => {
   return (
     <>
       <h1 className="">PERN POST</h1>
-      <FormControl onSubmit={handleSubmit(data => console.log(data))}>
+      <FormControl onSubmit={handleSubmit(onSubmit)}>
         <Controller
           control={control}
           name="TipTap"
-          render={({ field: { titleValue } }) => (
+          render={({ field }) => (
             //Look at the tip section
             <>
-              <TextField value={titleValue} />
+              <TextField {...field} />
               <Tiptap />
-              <Button onClick={(e) => onSubmit(e)}>
-                Save
-              </Button>
             </>
           )}
         />
+        <Button type="submit" onClick={(e) => onSubmit(e)}>
+          Save
+        </Button>
       </FormControl>
     </>
   )
