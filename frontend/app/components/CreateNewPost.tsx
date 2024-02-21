@@ -55,24 +55,25 @@ const InputPost = () => {
   //TODO: Use type control to set title and body of post as FormValues type
   // https://react-hook-form.com/docs/usecontroller/controller#Tip
 
-  //FIXME: clean up error handling, define 'data' type, make submission working
 
 
-  // Submitting new post THIS ONE
-  const onSubmit = async (data) => {
-    e.preventDefault();
-    try {
-      const body = { title: titleValue, body: editor?.getJSON() }
-      const response = fetch("http://localhost:5000/posts", {
-        method: "POST",
-        headers: { "Content-Type": "applicaiton/json" },
-        body: JSON.stringify(body)
-      })
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        console.error(err.message)
-      }
-    }
+  // Submitting new post THIS ONE 
+  // FIXME: not working
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    alert(JSON.stringify(data));
+
+    // try {
+    //   const body = { title: titleValue, body: editor?.getJSON() }
+    //   const response = fetch("http://localhost:5000/posts", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "applicaiton/json" },
+    //     body: JSON.stringify(body)
+    //   })
+    // } catch (err: unknown) {
+    //   if (err instanceof Error) {
+    //     console.error(err.message)
+    //   }
+    // }
 
     // Some random function here
     console.log(editor?.getJSON())
