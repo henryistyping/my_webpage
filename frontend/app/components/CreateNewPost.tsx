@@ -15,10 +15,12 @@ type FormValues = {
   TipTap: string
 }
 
+//FIXME: Finish - React Hook Form + MUI connection
+// then work on the onSubmit + onChange + onUpdate stuff
 const InputPost = () => {
   // const { handleSubmit, control } = useForm(); // RHF
   const { handleSubmit, control } = useForm<FormValues>()
-  const editor = useRichTextEditorContext(); // FIXME Tiptap
+  const editor = useRichTextEditorContext();
 
   // context is not returning editor property?
 
