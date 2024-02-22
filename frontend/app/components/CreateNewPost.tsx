@@ -6,7 +6,7 @@ import { useRichTextEditorContext } from 'mui-tiptap'
 
 import { Button, FormControl, TextField } from "@mui/material";
 
-import { useForm, SubmitHandler, Controller } from "react-hook-form"
+import { useForm, SubmitHandler, Controller, useFormContext } from "react-hook-form"
 
 import { z } from "zod";
 import { Exception } from 'sass';
@@ -19,6 +19,7 @@ const InputPost = () => {
   // const { handleSubmit, control } = useForm(); // RHF
   const { handleSubmit, control } = useForm<FormValues>()
   const editor = useRichTextEditorContext(); // FIXME Tiptap
+
   // context is not returning editor property?
 
 
@@ -60,7 +61,7 @@ const InputPost = () => {
   // Submitting new post THIS ONE 
   // FIXME: not working
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    alert(JSON.stringify(data));
+    // alert(JSON.stringify(data));
 
     // try {
     //   const body = { title: titleValue, body: editor?.getJSON() }
@@ -97,15 +98,15 @@ const InputPost = () => {
           render={({ field }) => (
             //Look at the tip section
             <>
-              <TextField {...field} />
               <Tiptap />
+              {/* <TextField {...field} /> */}
             </>
           )}
         />
-        <Button type="submit" onClick={(e) => onSubmit(e)}>
+        <Button type="submit">
           Save
         </Button>
-      </FormControl>
+      </FormControl >
     </>
   )
 };

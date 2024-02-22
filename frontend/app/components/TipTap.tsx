@@ -1,12 +1,12 @@
 
 import {
   MenuButtonBold,
-    MenuButtonItalic,
-    MenuControlsContainer,
-    MenuDivider,
-    MenuSelectHeading,
-    RichTextField,
-  } from "mui-tiptap";
+  MenuButtonItalic,
+  MenuControlsContainer,
+  MenuDivider,
+  MenuSelectHeading,
+  RichTextField,
+} from "mui-tiptap";
 
 //TODO: Finish incorporating menu buttons for the editor
 //STRETCH: Implement a Notion-style editor
